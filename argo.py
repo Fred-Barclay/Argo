@@ -126,14 +126,14 @@ class Gui(QtWidgets.QMainWindow):
         self.ui.textBrowser_FilesX.append(filename)
 
     def excludeFolders(self):
-        '''Exclude individual files from being backed up.'''
+        '''Exclude individual folders from being backed up.'''
         foldername = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select Folder"))
         self.foldersX.append(foldername)
         self.ui.textBrowser_FoldersX.append(foldername)
 
     def backUp(self):
         '''Main backup function.'''
-        # Get final options
+        # Get runtime options
         self.checkOptions()
 
         XFiles = []
@@ -180,9 +180,9 @@ class Gui(QtWidgets.QMainWindow):
 
         print(cmd)
 
+        subprocess.call(cmd)
 
-        subprocess.call([cmd])
-
+        # Shutdown in 15 seconds
         if self.shutdown == 1:
             subprocess.call(['shutdown', '/s', '/t', '15'])
 
